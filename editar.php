@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $idade = $_POST['idade'];
 
     $sql = "UPDATE pessoas SET Nome=?, Endereço=?, Telefone=?, Email=?, Idade=? WHERE CPF=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssi", $nome, $endereco, $telefone, $email, $idade, $cpf);
+    $stmt = $conn->prepare($sql);//executa
+    $stmt->bind_param("sssssi", $nome, $endereco, $telefone, $email, $idade, $cpf); //associa os valores
 
     if ($stmt->execute()) {
         echo "Registro atualizado com sucesso";
@@ -38,10 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     $sql = "SELECT * FROM pessoas WHERE CPF=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $cpf);
+    $stmt->bind_param("s", $cpf);//associa os valores 
     $stmt->execute();
-    $result = $stmt->get_result();
-    $pessoa = $result->fetch_assoc();
+    $result = $stmt->get_result();//resultado
+    $pessoa = $result->fetch_assoc();//obtem dados
 
     $stmt->close();
     $conn->close();
